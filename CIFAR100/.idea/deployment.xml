@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" autoUpload="Always" serverName="root@210.16.187.147:20179" remoteFilesAllowedToDisappearOnAutoupload="false">
+    <serverData>
+      <paths name="root@210.16.187.147:20179">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="root@210.16.187.147:20179 password">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/_CV/CIFAR100" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+    <option name="myAutoUpload" value="ALWAYS" />
+  </component>
+</project>
