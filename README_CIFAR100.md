@@ -1,23 +1,45 @@
 # CIFAR100
 
-## Requirements
+使用resnet18在CIFAR100数据集上训练，并使用了mixup, cutout, cutmix三种数据增强方法分别训练
 
-TODO
+### Requirements
 
-## Model
+TODO: 版本
 
-resnet18 (w/o pretraining)
+pytorch
 
-## Results
+torchtoolbox
+
+numpy
+
+matplotlib
+
+下面这些不知道要不要，哪些是python自带的
+
+tqdm
+
+warnings
+
+errno
+
+os
+
+shutil
+
+itertools
+
+random
+
+### Results
 
 Top 1 accuracy(%)
 
 - baseline:  61.74
 - mixup: 62.40
-- cutout: TODO
+- cutout: 61.48
 - cutmix: 64.66
 
-## Training
+### Training
 
 - **baseline**
 
@@ -51,7 +73,7 @@ writer_train = SummaryWriter('log/train')
 writer_test = SummaryWriter('log/test')
 ```
 
-<img src="CIFAR100\figures\loss_bl.png" alt="loss_bl" style="zoom: 30%;" /> <img src="CIFAR100\figures\acc_bl.png" alt="acc_bl" style="zoom:30%;" />
+<img src="CIFAR100\figures\loss_bl.png" alt="loss_bl" style="zoom: 67%;" /> <img src="CIFAR100\figures\acc_bl.png" alt="acc_bl" style="zoom:67%;" />
 
 
 
@@ -83,7 +105,7 @@ train_log = train(train_loader, model, criterion, optimizer, epoch, writer_train
 
 tensorboard可视化：
 
-<img src="CIFAR100\figures\loss_mu.png" alt="loss_mu" style="zoom:50%;" /> <img src="CIFAR100\figures\acc_mu.png" alt="acc_mu" style="zoom:50%;" /> 
+<img src="CIFAR100\figures\loss_mu.png" alt="loss_mu" style="zoom:67%;" />  <img src="CIFAR100\figures\acc_mu.png" alt="acc_mu" style="zoom:67%;" /> 
 
   
 
@@ -119,9 +141,13 @@ cifar_train_transform = T.Compose([
 
 取消注释Cutout()即可训练，不需要修改76-78行的train函数
 
+tensorboard可视化：
+
+<img src="CIFAR100\figures\loss_co.png" alt="loss_co" style="zoom: 67%;" /> <img src="CIFAR100\figures\acc_co.png" alt="acc_co" style="zoom: 67%;" /> 
 
 
-- cutmix
+
+- **cutmix**
 
 **optimizer:** SGD
 
@@ -149,19 +175,33 @@ train_log = train(train_loader, model, criterion, optimizer, epoch, writer_train
 
 tensorboard可视化：
 
-<img src="CIFAR100\figures\loss_cm.png" alt="loss_cm" style="zoom:50%;" /> <img src="CIFAR100\figures\acc_cm.png" alt="acc_cm" style="zoom:50%;" /> 
+<img src="CIFAR100\figures\loss_cm.png" alt="loss_cm" style="zoom:67%;" /> <img src="CIFAR100\figures\acc_cm.png" alt="acc_cm" style="zoom:67%;" /> 
 
 
 
-## 更多可视化结果
+### 更多可视化结果
 
-经归一化和标准数据增强（crop/flip）的部分图像输入
+- mixup 图像
+
+<img src="CIFAR100\figures\apple+boy_mixup.png" alt="apple+boy_mixup" style="zoom: 33%;" /> <img src="CIFAR100\figures\boy+elephant_mixup.png" alt="boy+elephant_mixup" style="zoom: 33%;" /> <img src="CIFAR100\figures\apple+elephant_mixup.png" alt="apple+elephant_mixup" style="zoom: 33%;" /> 
+
+
+
+- cutout 图像
+
+<img src="CIFAR100\figures\apple_cutout.png" alt="apple_cutout" style="zoom:33%;" /> <img src="CIFAR100\figures\boy_cutout.png" alt="boy_cutout" style="zoom:33%;" /> <img src="CIFAR100\figures\elephant_cutout.png" alt="elephant_cutout" style="zoom:33%;" /> 
+
+- cutmix 图像
+
+<img src="CIFAR100\figures\apple+boy_cutmix.png" alt="apple+boy_cutmix" style="zoom:33%;" /> <img src="CIFAR100\figures\boy+elephant_cutmix.png" alt="boy+elephant_cutmix" style="zoom:33%;" /> <img src="CIFAR100\figures\elephant+apple_cutmix.png" alt="elephant+apple_cutmix" style="zoom:33%;" /> 
+
+- 经归一化和标准数据增强（crop/flip）的部分图像输入
 
 <img src="CIFAR100\figures\inputs.png" alt="inputs" style="zoom:80%;" /> 
 
 
 
-对部分特定类别的预测准确率，图中标签82（sunflower）、30（dolphin）、36（hamster）预测非常准确，而对35（girl）准确率较低
+- 对部分特定类别的预测准确率，图中标签82（sunflower）、30（dolphin）、36（hamster）预测非常准确，而对35（girl）准确率较低
 
 <img src="CIFAR100\figures\pva.png" alt="pva" style="zoom:80%;" />  
 
