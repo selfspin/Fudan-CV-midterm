@@ -51,7 +51,7 @@ writer_train = SummaryWriter('log/train')
 writer_test = SummaryWriter('log/test')
 ```
 
-<img src="CIFAR100\figures\loss_bl.png" alt="loss_bl" style="zoom: 50%;" /> <img src="CIFAR100\figures\acc_bl.png" alt="acc_bl" style="zoom:50%;" />
+<img src="CIFAR100\figures\loss_bl.png" alt="loss_bl" style="zoom: 30%;" /> <img src="CIFAR100\figures\acc_bl.png" alt="acc_bl" style="zoom:30%;" />
 
 
 
