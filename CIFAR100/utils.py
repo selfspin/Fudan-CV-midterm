@@ -2,8 +2,11 @@ import errno
 import os
 import os.path as osp
 import shutil
+import random
 import torch
 import numpy as np
+import torch.nn.functional as F
+import matplotlib.pyplot as plt
 from tqdm import tqdm
 
 
@@ -71,8 +74,6 @@ def adjust_learning_rate(optimizer, epoch, initial_lr):
         lr /= 10
     if epoch >= 100:
         lr /= 10
-    if epoch >= 120:
-        lr /= 10
     for param_group in optimizer.param_groups:
         param_group['lr'] = lr
 
@@ -94,7 +95,7 @@ def load_checkpoint(model, checkpoint_PATH, optimizer):
     return model, optimizer
 
 
-def train(train_loader, model, criterion, optimizer, epoch):
+def train(train_loader, model, criterion, optimizer, epoch, writer=None):
     # 每个epoch的优化过程
     losses = AverageMeter()
 
@@ -117,11 +118,15 @@ def train(train_loader, model, criterion, optimizer, epoch):
         # measure accuracy and record loss
         losses.update(loss.item(), input.size(0))
 
-    log = 'Epoch:{0}\tLoss: {loss.avg:.4f}\t'.format(epoch+1, loss=losses)
+    if writer is not None:
+        writer.add_scalar('Loss', losses.avg, epoch + 1)
+        writer.add_figure('predictions vs actuals', plot_classes_preds(model, input, target), global_step=epoch + 1)
+
+    log = 'Epoch:{0}\tLoss: {loss.avg:.4f}\t'.format(epoch + 1, loss=losses)
     return log
 
 
-def test(test_loader, model, criterion):
+def test(test_loader, model, criterion, epoch, writer=None):
     top1 = AverageMeter()
     losses = AverageMeter()
 
@@ -141,7 +146,9 @@ def test(test_loader, model, criterion):
         losses.update(loss.item(), input.size(0))
         top1.update(acc1.item(), input.size(0))
 
-        # measure elapsed time
+    if writer is not None:
+        writer.add_scalar('Loss', losses.avg, epoch + 1)
+        writer.add_scalar('Test Accuarcy', top1.avg, epoch + 1)
 
     log = 'Test Acc@1: {top1.avg:.3f}\tLoss: {loss.avg:.4f}'.format(top1=top1, loss=losses)
 
@@ -149,6 +156,8 @@ def test(test_loader, model, criterion):
 
 
 def init_seeds(seed=0):
+    np.random.seed(seed)  # Numpy module.
+    random.seed(seed)  # Python random module.
     torch.manual_seed(seed)  # seed for PyTorch CPU
     torch.cuda.manual_seed(seed)  # seed for current PyTorch GPU
     torch.cuda.manual_seed_all(seed)  # seed for all PyTorch GPUs
@@ -181,7 +190,7 @@ def mixup_criterion(criterion, pred, y_a, y_b, lam):
     return lam * criterion(pred, y_a) + (1 - lam) * criterion(pred, y_b)
 
 
-def train_mixup(train_loader, model, criterion, optimizer, alpha, epoch):
+def train_mixup(train_loader, model, criterion, optimizer, alpha, epoch, writer=None):
     losses = AverageMeter()
 
     # switch to train mode
@@ -204,6 +213,9 @@ def train_mixup(train_loader, model, criterion, optimizer, alpha, epoch):
 
         # measure accuracy and record loss
         losses.update(loss.item(), input.size(0))
+
+    if writer is not None:
+        writer.add_scalar('Loss', losses.avg, epoch + 1)
 
     log = 'Epoch:{0}\tLoss: {loss.avg:.4f}\t'.format(epoch + 1, loss=losses)
     return log
@@ -228,7 +240,7 @@ def rand_bbox(size, lam):
     return bbx1, bby1, bbx2, bby2
 
 
-def train_cutmix(train_loader, model, criterion, optimizer, beta, cutmix_prob, epoch):
+def train_cutmix(train_loader, model, criterion, optimizer, beta, cutmix_prob, epoch, writer=None):
     losses = AverageMeter()
 
     # switch to train mode
@@ -264,5 +276,53 @@ def train_cutmix(train_loader, model, criterion, optimizer, beta, cutmix_prob, e
         # measure accuracy and record loss
         losses.update(loss.item(), input.size(0))
 
+    if writer is not None:
+        writer.add_scalar('Loss', losses.avg, epoch + 1)
+
     log = 'Epoch:{0}\tLoss: {loss.avg:.4f}\t'.format(epoch + 1, loss=losses)
     return log
+
+
+# for tensorboard
+def matplotlib_imshow(img, one_channel=False):
+    if one_channel:
+        img = img.mean(dim=0)
+    npimg = img.cpu().numpy()
+    if one_channel:
+        plt.imshow(npimg, cmap="Greys")
+    else:
+        plt.imshow(np.transpose(npimg, (1, 2, 0)))
+
+
+def images_to_probs(net, images):
+    """
+   Generates predictions and corresponding probabilities from a trained
+   network and a list of images
+   """
+    output = net(images)
+    # convert output probabilities to predicted class
+    _, preds_tensor = torch.max(output, 1)
+    preds = np.squeeze(preds_tensor.cpu().numpy())
+    return preds, [F.softmax(el, dim=0)[i].item() for i, el in zip(preds, output)]  # 返回预测结果及概率
+
+
+def plot_classes_preds(net, images, labels):
+    """
+   Generates matplotlib Figure using a trained network, along with images
+   and labels from a batch, that shows the network's top prediction along
+   with its probability, alongside the actual label, coloring this
+   information based on whether the prediction was correct or not.
+   Uses the "images_to_probs" function.
+   """
+    preds, probs = images_to_probs(net, images)
+    # plot the images in the batch, along with predicted and true labels
+    fig = plt.figure(figsize=(10, 10))
+    for idx in np.arange(4):
+        ax = fig.add_subplot(1, 4, idx + 1, xticks=[], yticks=[])
+        matplotlib_imshow(images[idx], one_channel=True)
+        ax.set_title("{0}, {1:.1f}%\n(label: {2})".format(
+            preds[idx],
+            probs[idx] * 100.0,
+            labels[idx]),
+            color=("green" if preds[idx] == labels[idx].item() else "red"))
+    return fig
