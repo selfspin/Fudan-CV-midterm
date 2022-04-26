@@ -21,7 +21,7 @@ Top 1 accuracy(%)
 
 - **baseline**
 
-**optimizer: ** SGD
+**optimizer:** SGD
 
 **hyper-parameters:**
 
