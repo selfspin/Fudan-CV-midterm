@@ -51,13 +51,13 @@ writer_train = SummaryWriter('log/train')
 writer_test = SummaryWriter('log/test')
 ```
 
-<img src="CIFAR100\figures\loss_bl.png" alt="loss_bl" style="zoom: 67%;" /> <img src="CIFAR100\figures\acc_bl.png" alt="acc_bl" style="zoom:67%;" />
+<img src="CIFAR100\figures\loss_bl.png" alt="loss_bl" style="zoom: 50%;" /> <img src="CIFAR100\figures\acc_bl.png" alt="acc_bl" style="zoom:50%;" />
 
 
 
 - **mixup**
 
-**optimizer: ** SGD
+**optimizer:** SGD
 
 **hyper-parameters:**
 
@@ -83,13 +83,13 @@ train_log = train(train_loader, model, criterion, optimizer, epoch, writer_train
 
 tensorboard可视化：
 
-<img src="CIFAR100\figures\loss_mu.png" alt="loss_mu" style="zoom:67%;" /> <img src="CIFAR100\figures\acc_mu.png" alt="acc_mu" style="zoom:67%;" /> 
+<img src="CIFAR100\figures\loss_mu.png" alt="loss_mu" style="zoom:50%;" /> <img src="CIFAR100\figures\acc_mu.png" alt="acc_mu" style="zoom:50%;" /> 
 
   
 
 - **cutout**
 
-**optimizer: ** SGD
+**optimizer:** SGD
 
 **hyper-parameters:**
 
@@ -123,7 +123,7 @@ cifar_train_transform = T.Compose([
 
 - cutmix
 
-**optimizer: ** SGD
+**optimizer:** SGD
 
 **hyper-parameters:**
 
@@ -149,7 +149,7 @@ train_log = train(train_loader, model, criterion, optimizer, epoch, writer_train
 
 tensorboard可视化：
 
-<img src="CIFAR100\figures\loss_cm.png" alt="loss_cm" style="zoom:67%;" /> <img src="CIFAR100\figures\acc_cm.png" alt="acc_cm" style="zoom:67%;" /> 
+<img src="CIFAR100\figures\loss_cm.png" alt="loss_cm" style="zoom:50%;" /> <img src="CIFAR100\figures\acc_cm.png" alt="acc_cm" style="zoom:50%;" /> 
 
 
 
