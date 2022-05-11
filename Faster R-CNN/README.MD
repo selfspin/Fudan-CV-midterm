@@ -91,7 +91,7 @@ tensorboard --logdir TB_log
 ## 4. Checking
 If you want to check our model, download it from [Here](https://drive.google.com/drive/folders/1OhK-BTDL54OVkLrOH7ngPjCFpNHL-09c) first!
 
-Then,make the path Faster R-CNN/checkpoints/fasterrcnn_05071517_0.7058461237091669.pt
+Then,make the path Faster R-CNN/checkpoints/fasterrcnn_05071517_0.7058461237091669
 
 To check the the effect of the model, run following:
 
