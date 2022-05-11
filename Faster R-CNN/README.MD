@@ -1,5 +1,7 @@
 # A Simple and Fast Implementation of Faster R-CNN
 
+**Note:** Our Model is on [Google drive](https://drive.google.com/drive/folders/1OhK-BTDL54OVkLrOH7ngPjCFpNHL-09c).
+
 ## 0. mAP
 
 VGG16 train on `trainval` and test on `test` split. 
