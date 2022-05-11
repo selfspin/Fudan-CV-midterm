@@ -2,11 +2,17 @@
 
 使用resnet18在CIFAR100数据集上训练，并使用了mixup, cutout, cutmix三种数据增强方法分别训练
 
+训练模型从云盘获取：
+
+链接：https://pan.baidu.com/s/1Vr9iM9Sv_HWuO6CDtJA68g （提取码：fd5f）
+
 ### Requirements
 
-TODO: 版本
+pytorch>=1.11
 
-pytorch
+torchvision>=0.12.0
+
+tensorboard>=2.8
 
 torchtoolbox
 
@@ -14,21 +20,7 @@ numpy
 
 matplotlib
 
-下面这些不知道要不要，哪些是python自带的
-
 tqdm
-
-warnings
-
-errno
-
-os
-
-shutil
-
-itertools
-
-random
 
 ### Results
 
