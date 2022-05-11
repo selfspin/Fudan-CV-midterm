@@ -10,6 +10,13 @@ conda activate yolo
 pip install -r requirements.txt
 ```
 
+再从百度网盘
+
+链接：https://pan.baidu.com/s/1Sp3pnMxgVONElgTCU3GAWA 
+提取码：yolo
+
+下载 `yolov3.pt` 和 `voc_best.pt` 到 `YOLOv3` 文件夹下
+
 ## 目标检测
 
 使用`detect.py`进行检测，结果存放在`runs/detect`
