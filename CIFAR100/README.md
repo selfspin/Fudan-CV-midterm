@@ -65,7 +65,7 @@ writer_train = SummaryWriter('log/train')
 writer_test = SummaryWriter('log/test')
 ```
 
-<img src="figures\loss_bl.png" alt="loss_bl" style="zoom: 67%;" /> <img src="\figures\acc_bl.png" alt="acc_bl" style="zoom:67%;" />
+<img src="figures\loss_bl.png" alt="loss_bl" style="zoom: 67%;" /> <img src="figures\acc_bl.png" alt="acc_bl" style="zoom:67%;" />
 
 
 
@@ -97,7 +97,7 @@ train_log = train(train_loader, model, criterion, optimizer, epoch, writer_train
 
 tensorboard可视化：
 
-<img src="figures\loss_mu.png" alt="loss_mu" style="zoom:67%;" />  <img src="\figures\acc_mu.png" alt="acc_mu" style="zoom:67%;" /> 
+<img src="figures\loss_mu.png" alt="loss_mu" style="zoom:67%;" />  <img src="figures\acc_mu.png" alt="acc_mu" style="zoom:67%;" /> 
 
   
 
@@ -167,7 +167,7 @@ train_log = train(train_loader, model, criterion, optimizer, epoch, writer_train
 
 tensorboard可视化：
 
-<img src="figures\loss_cm.png" alt="loss_cm" style="zoom:67%;" /> <img src="\figures\acc_cm.png" alt="acc_cm" style="zoom:67%;" /> 
+<img src="figures\loss_cm.png" alt="loss_cm" style="zoom:67%;" /> <img src="figures\acc_cm.png" alt="acc_cm" style="zoom:67%;" /> 
 
 
 
@@ -181,19 +181,19 @@ tensorboard可视化：
 
 - cutout 图像
 
-<img src="\figures\apple_cutout.png" alt="apple_cutout" style="zoom:33%;" /> <img src=" figures\boy_cutout.png" alt="boy_cutout" style="zoom:33%;" /> <img src=" figures\elephant_cutout.png" alt="elephant_cutout" style="zoom:33%;" /> 
+<img src="figures\apple_cutout.png" alt="apple_cutout" style="zoom:33%;" /> <img src=" figures\boy_cutout.png" alt="boy_cutout" style="zoom:33%;" /> <img src=" figures\elephant_cutout.png" alt="elephant_cutout" style="zoom:33%;" /> 
 
 - cutmix 图像
 
-<img src="figures\apple+boy_cutmix.png" alt="apple+boy_cutmix" style="zoom:33%;" /> <img src="\figures\boy+elephant_cutmix.png" alt="boy+elephant_cutmix" style="zoom:33%;" /> <img src="figures\elephant+apple_cutmix.png" alt="elephant+apple_cutmix" style="zoom:33%;" /> 
+<img src="figures\apple+boy_cutmix.png" alt="apple+boy_cutmix" style="zoom:33%;" /> <img src="figures\boy+elephant_cutmix.png" alt="boy+elephant_cutmix" style="zoom:33%;" /> <img src="figures\elephant+apple_cutmix.png" alt="elephant+apple_cutmix" style="zoom:33%;" /> 
 
 - 经归一化和标准数据增强（crop/flip）的部分图像输入
 
-<img src="\figures\inputs.png" alt="inputs" style="zoom:80%;" /> 
+<img src="figures\inputs.png" alt="inputs" style="zoom:80%;" /> 
 
 
 
 - 对部分特定类别的预测准确率，图中标签82（sunflower）、30（dolphin）、36（hamster）预测非常准确，而对35（girl）准确率较低
 
-<img src="\figures\pva.png" alt="pva" style="zoom:80%;" />  
+<img src="figures\pva.png" alt="pva" style="zoom:80%;" />  
 
